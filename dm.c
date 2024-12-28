@@ -101,6 +101,42 @@ ainsi on est en O(n* (n!))
 
 
 */
+
+/*question 11*/
+int plus_proche(int *G, bool *vus, int n, int s){
+    int pmin=1000000;
+    int min=-1;
+    for(int i=0;i<n;i++){
+        if(!vus[i] && G[n*s+i]<pmin) {
+            pmin=G[n*s+i];
+            min=i;
+        }   
+    }
+    return min;
+}
+
+/*question 12 */
+
+int *PVC_glouton(int *G,int n){
+    bool *vus=malloc(n*sizeof(bool));
+    int *p=malloc(n*sizeof(int));
+    for(int i=1;i<n;i++){
+        vus[i]=false;
+    }
+    vus[0]=true;
+    p[0]=0;
+    int i,j;
+    i=1;
+    while(i<n){
+        j=plus_proche(G,vus,n,p[i-1]);
+        vus[j]=true;
+        p[i]=j;
+        i++;
+    }
+    free(vus);
+    return p;
+}
+
 int main(){
     int G0[25] =
     {0, 1, 3, 5, 4,
@@ -116,5 +152,13 @@ int main(){
     int *p=PVC_naif(G0,5);
     res=poids_cycle(G0,p,5);
     printf("%d\n",res);
+    bool vus[5] = {true, false, true, true, false};
+    int pu= plus_proche(G0, vus, 5, 2);
+    printf("%d\n",pu);
+    int *pg=PVC_glouton(G0,5);
+    for(int i=0;i<5;i++){
+        printf("%d ->",pg[i]);
+    }   
+    printf("\n");
     return 0;
 }
