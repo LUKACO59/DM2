@@ -136,6 +136,12 @@ int *PVC_glouton(int *G,int n){
     free(vus);
     return p;
 }
+/*question 13*/
+/*On a plus_proche qui est en O(|S|) soit O(n)
+l'initialisation des tableaux et en O(n)
+et dans la boucle while on réalise n fois l'opération plus_proche et de mettre a jour 3 informations O(n²)
+ainsi on O(5n+n²)=O(n²)
+*/
 
 int main(){
     int G0[25] =
